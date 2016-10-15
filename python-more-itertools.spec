@@ -6,12 +6,12 @@ Opensource python library wrapping around itertools. Package also includes \
 implementations of the recipes from the itertools documentation.\
 \
 See https://pythonhosted.org/more-itertools/index.html for documentation.\
-%global Python library for efficient use of itertools utility
+%global sum Python library for efficient use of itertools utility
 
 Name:           python-%{srcname}
 Version:        2.2
-Release:        3%{?dist}
-Summary:        %{sum}
+Release:        4%{?dist}
+Summary:        %{sum} 
 License:        MIT
 URL:            https://github.com/erikrose/more-itertools
 Source0:        https://pypi.python.org/packages/3d/4d/5900efaab46680e3c6c7a2fd87e4531f87e101ec35f6941621dc7f097e82/%{srcname}-%{version}.tar.gz
@@ -63,6 +63,8 @@ Summary:        %{sum}
 %{python3_sitelib}/more_itertools-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Oct 14 2016 aarem AT fedoraproject DOT org - 2.2-4
+- fixed missing sum in line 9 of spec file, per BZ #138195
 * Sat Oct 8 2016 aarem AT fedoraproject DOT org - 2.2-3
 - renamed spec file to match package as per BZ #1381029
 -fixed bug (incorrect python3_provides) as per BZ #1381029
