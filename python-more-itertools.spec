@@ -9,8 +9,8 @@ See https://pythonhosted.org/more-itertools/index.html for documentation.\
 %global sum Python library for efficient use of itertools utility
 
 Name:           python-%{srcname}
-Version:        2.2
-Release:        4%{?dist}
+Version:        2.3
+Release:        1%{?dist}
 Summary:        %{sum} 
 License:        MIT
 URL:            https://github.com/erikrose/more-itertools
@@ -63,6 +63,8 @@ Summary:        %{sum}
 %{python3_sitelib}/more_itertools-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Nov 09 2016 aarem AT fedoraproject DOT org - 2.3-1
+- update to 2.3
 * Fri Oct 14 2016 aarem AT fedoraproject DOT org - 2.2-4
 - fixed missing sum in line 9 of spec file, per BZ #138195
 * Sat Oct 8 2016 aarem AT fedoraproject DOT org - 2.2-3
@@ -70,8 +72,8 @@ Summary:        %{sum}
 -fixed bug (incorrect python3_provides) as per BZ #1381029
 - use common macro for description as per suggestion in BZ #1381029
 
-* Wed Oct 5 2016 aarem AT fedoraproject DOT org - 2.2-2
+* Wed Oct 05 2016 aarem AT fedoraproject DOT org - 2.2-2
 - separated python and python3 cases as per BZ #1381029
 
-* Sun Oct 2 2016 aarem AT fedoraproject DOT org - 2.2-1
+* Sun Oct 02 2016 aarem AT fedoraproject DOT org - 2.2-1
 - initial packaging of 2.2 version
