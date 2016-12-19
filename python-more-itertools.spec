@@ -10,7 +10,7 @@ See https://pythonhosted.org/more-itertools/index.html for documentation.\
 
 Name:           python-%{srcname}
 Version:        2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum} 
 License:        MIT
 URL:            https://github.com/erikrose/more-itertools
@@ -63,6 +63,9 @@ Summary:        %{sum}
 %{python3_sitelib}/more_itertools-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 2.3-2
+- Rebuild for Python 3.6
+
 * Wed Nov 09 2016 aarem AT fedoraproject DOT org - 2.3-1
 - update to 2.3
 * Fri Oct 14 2016 aarem AT fedoraproject DOT org - 2.2-4
