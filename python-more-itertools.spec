@@ -16,10 +16,12 @@ License:        MIT
 URL:            https://github.com/erikrose/more-itertools
 Source0:        https://pypi.python.org/packages/3d/4d/5900efaab46680e3c6c7a2fd87e4531f87e101ec35f6941621dc7f097e82/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  python-devel
-BuildRequires:  python-nose
+BuildRequires:  python2-devel
+BuildRequires:  python2-nose
+BuildRequires:  python2-six
 BuildRequires:  python3-devel
 BuildRequires:  python3-nose
+BuildRequires:  python3-six
 
 %description %_description
 
