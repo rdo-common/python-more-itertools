@@ -9,12 +9,12 @@ See https://pythonhosted.org/more-itertools/index.html for documentation.\
 %global sum Python library for efficient use of itertools utility
 
 Name:           python-%{srcname}
-Version:        2.3
-Release:        5%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        %{sum} 
 License:        MIT
 URL:            https://github.com/erikrose/more-itertools
-Source0:        https://pypi.python.org/packages/3d/4d/5900efaab46680e3c6c7a2fd87e4531f87e101ec35f6941621dc7f097e82/%{srcname}-%{version}.tar.gz
+Source0:        https://pypi.io/packages/source/m/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python2-devel
 BuildRequires:  python2-nose
@@ -38,33 +38,39 @@ Summary:        %{sum}
 %description -n python3-%{srcname} %_description
 
 %prep
-%autosetup -n %{srcname}-%{version} -a0
+%autosetup -n %{srcname}-%{version}
 
 %build
 %py2_build
-(cd more-itertools-%{version}/ && %py3_build)
+%py3_build
 
 %install
 %py2_install
-(cd more-itertools-%{version}/ && %py3_install)
+%py3_install
 
 %check
-%{__python2} -m nose build/lib/ -v
-%{__python3} -m nose more-itertools-%{version}/build/lib/ -v
+%{__python2} ./setup.py test
+%{__python3} ./setup.py test
 
 %files -n python2-%{srcname}
 %license LICENSE
 %doc README.rst PKG-INFO
 %{python2_sitelib}/more_itertools/
+%exclude %{python2_sitelib}/more_itertools/tests
 %{python2_sitelib}/more_itertools-%{version}-py%{python2_version}.egg-info
 
 %files -n python3-%{srcname}
 %license LICENSE
 %doc README.rst PKG-INFO
 %{python3_sitelib}/more_itertools/
+%exclude %{python3_sitelib}/more_itertools/tests
 %{python3_sitelib}/more_itertools-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Mar 24 2018 Thomas Moschny <thomas.moschny@gmx.de> - 4.1.0-1
+- Update to 4.1.0.
+- Do not package tests.
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
