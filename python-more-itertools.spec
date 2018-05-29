@@ -1,6 +1,11 @@
 # spec file for package python-more-itertools
 # https://fedoraproject.org/wiki/Packaging:Python#Example_common_spec
 %global srcname more-itertools
+
+%if 0%{?fedora}
+%global with_python3 1
+%endif
+
 %global _description \
 Opensource python library wrapping around itertools. Package also includes \
 implementations of the recipes from the itertools documentation.\
@@ -19,9 +24,6 @@ BuildArch:      noarch
 BuildRequires:  python2-devel
 BuildRequires:  python2-nose
 BuildRequires:  python2-six
-BuildRequires:  python3-devel
-BuildRequires:  python3-nose
-BuildRequires:  python3-six
 
 %description %_description
 
@@ -31,26 +33,38 @@ Summary:        %{sum}
 
 %description -n python2-%{srcname} %_description
 
+%if 0%{?with_python3}
 %package -n python3-%{srcname}
 Summary:        %{sum}
 %{?python_provide:%python_provide python3-%{srcname}}
 
+BuildRequires:  python3-devel
+BuildRequires:  python3-nose
+BuildRequires:  python3-six
+
 %description -n python3-%{srcname} %_description
+%endif
 
 %prep
 %autosetup -n %{srcname}-%{version}
 
 %build
 %py2_build
+%if 0%{?with_python3}
 %py3_build
+%endif
 
 %install
 %py2_install
+%if 0%{?with_python3}
 %py3_install
+%endif
 
 %check
 %{__python2} ./setup.py test
+%if 0%{?with_python3}
 %{__python3} ./setup.py test
+%endif
 
 %files -n python2-%{srcname}
 %license LICENSE
@@ -59,12 +73,14 @@ Summary:        %{sum}
 %exclude %{python2_sitelib}/more_itertools/tests
 %{python2_sitelib}/more_itertools-%{version}-py%{python2_version}.egg-info
 
+%if 0%{?with_python3}
 %files -n python3-%{srcname}
 %license LICENSE
 %doc README.rst PKG-INFO
 %{python3_sitelib}/more_itertools/
 %exclude %{python3_sitelib}/more_itertools/tests
 %{python3_sitelib}/more_itertools-%{version}-py%{python3_version}.egg-info
+%endif
 
 %changelog
 * Sat Mar 24 2018 Thomas Moschny <thomas.moschny@gmx.de> - 4.1.0-1
