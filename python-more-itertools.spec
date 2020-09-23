@@ -1,91 +1,89 @@
-# spec file for package python-more-itertools
-# https://fedoraproject.org/wiki/Packaging:Python#Example_common_spec
 %global srcname more-itertools
-
-%if 0%{?fedora}
-%global with_python3 1
-%endif
-
-%global _description \
-Opensource python library wrapping around itertools. Package also includes \
-implementations of the recipes from the itertools documentation.\
-\
-See https://pythonhosted.org/more-itertools/index.html for documentation.\
-%global sum Python library for efficient use of itertools utility
-
 Name:           python-%{srcname}
-Version:        4.1.0
+Version:        8.5.0
 Release:        1%{?dist}
-Summary:        %{sum} 
+Summary:        More routines for operating on Python iterables, beyond itertools
 License:        MIT
 URL:            https://github.com/erikrose/more-itertools
-Source0:        https://pypi.io/packages/source/m/%{srcname}/%{srcname}-%{version}.tar.gz
+Source0:        %{pypi_source}
 BuildArch:      noarch
-BuildRequires:  python2-devel
-BuildRequires:  python2-nose
-BuildRequires:  python2-six
+
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-six
+
+%global _description %{expand:
+Python's itertools library is a gem - you can compose elegant solutions for
+a variety of problems with the functions it provides. In more-itertools we
+collect additional building blocks, recipes, and routines for working with
+Python iterables.}
 
 %description %_description
 
-%package -n python2-%{srcname}
-Summary:        %{sum}
-%{?python_provide:%python_provide python2-%{srcname}} 
-
-%description -n python2-%{srcname} %_description
-
-%if 0%{?with_python3}
 %package -n python3-%{srcname}
-Summary:        %{sum}
+Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-nose
-BuildRequires:  python3-six
-
 %description -n python3-%{srcname} %_description
-%endif
 
 %prep
 %autosetup -n %{srcname}-%{version}
 
 %build
-%py2_build
-%if 0%{?with_python3}
 %py3_build
-%endif
 
 %install
-%py2_install
-%if 0%{?with_python3}
 %py3_install
-%endif
 
 %check
-%{__python2} ./setup.py test
-%if 0%{?with_python3}
-%{__python3} ./setup.py test
-%endif
+%{__python3} setup.py test
 
-%files -n python2-%{srcname}
-%license LICENSE
-%doc README.rst PKG-INFO
-%{python2_sitelib}/more_itertools/
-%exclude %{python2_sitelib}/more_itertools/tests
-%{python2_sitelib}/more_itertools-%{version}-py%{python2_version}.egg-info
-
-%if 0%{?with_python3}
 %files -n python3-%{srcname}
 %license LICENSE
 %doc README.rst PKG-INFO
 %{python3_sitelib}/more_itertools/
 %exclude %{python3_sitelib}/more_itertools/tests
-%{python3_sitelib}/more_itertools-%{version}-py%{python3_version}.egg-info
-%endif
+%{python3_sitelib}/more_itertools-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Sep 23 2020 Joel Capitao <jcapitao@redhat.com> - 8.5.0-1
+- Update to 8.5.0
+
+* Wed Jul 29 2020 Miro Hrončok <mhroncok@redhat.com> - 8.4.0-1
+- Update to 8.4.0
+- Fixes rhbz#1778332
+
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Fri May 22 2020 Miro Hrončok <mhroncok@redhat.com> - 7.2.0-5
+- Rebuilt for Python 3.9
+
+* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 7.2.0-3
+- Rebuilt for Python 3.8.0rc1 (#1748018)
+
+* Thu Aug 15 2019 Miro Hrončok <mhroncok@redhat.com> - 7.2.0-2
+- Rebuilt for Python 3.8
+
+* Tue Aug 13 2019 Thomas Moschny <thomas.moschny@gmx.de> - 7.2.0-1
+- Update to 7.2.0.
+
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Tue May 21 2019 aarem AT fedoraproject DOT org - 7.0.0-1
+- Update to 7.0.0
+- Drop python-2
+
+* Sun Apr 01 2018 aarem AT fedoraproject DOT org - 4.1.0-1
+- rebuit for 4.1.0 using Thomas Moschny modification to spec file
+
 * Sat Mar 24 2018 Thomas Moschny <thomas.moschny@gmx.de> - 4.1.0-1
 - Update to 4.1.0.
-- Do not package tests.
+- Do not do  package tests.
 
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
